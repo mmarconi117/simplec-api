@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple MVC API App</title>
+</head>
+<body>
+    <h1>Bitcoin Price</h1>
+    @if (ViewData["Error"] != null)
+    {
+        <p style="color:red;">@ViewData["Error"]</p>
+    }
+    else
+    {
+        <p>Current Bitcoin price in USD: @ViewData["BitcoinPriceUSD"]</p>
+        <p>Current Bitcoin price in GBP: @ViewData["BitcoinPriceGBP"]</p>
+        <p>Current Bitcoin price in EUR: @ViewData["BitcoinPriceEUR"]</p>
+        <p>Last updated: @ViewData["UpdatedTime"]</p>
+    }
+</body>
+</html>
