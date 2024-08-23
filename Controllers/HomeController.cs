@@ -22,7 +22,7 @@ namespace theApi.Controllers
             {
                 var client = _httpClientFactory.CreateClient();
                 var response = await client.GetAsync("https://api.coindesk.com/v1/bpi/currentprice.json");
-                response.EnsureSuccessStatusCode(); // Throws an exception if the status code is not success
+                response.EnsureSuccessStatusCode();
                 var responseString = await response.Content.ReadAsStringAsync();
                 var json = JObject.Parse(responseString);
 
@@ -33,7 +33,7 @@ namespace theApi.Controllers
             }
             catch (HttpRequestException e)
             {
-                // Log and handle the error as needed
+
                 ViewData["Error"] = "Unable to fetch data from CoinDesk API.";
             }
 
