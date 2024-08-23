@@ -31,3 +31,4 @@
 /Users/michaelmarconi/simplec#api/theApi/bin/Debug/net8.0/Newtonsoft.Json.dll
 /Users/michaelmarconi/simplec#api/theApi/obj/Debug/net8.0/theApi.csproj.AssemblyReference.cache
 /Users/michaelmarconi/simplec#api/theApi/obj/Debug/net8.0/theApi.csproj.Up2Date
+/Users/michaelmarconi/simplec#api/theApi/obj/Debug/net8.0/theApi.sourcelink.json
