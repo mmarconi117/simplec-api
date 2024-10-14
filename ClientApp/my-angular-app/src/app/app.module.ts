@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
 import { AppComponent } from './app.component';
+import { provideHttpClient } from '@angular/common/http'; // Import provideHttpClient
 
 @NgModule({
   declarations: [
@@ -9,9 +9,11 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    HttpClientModule // Add HttpClientModule here
+    // HttpClientModule is no longer needed here
   ],
-  providers: [],
+  providers: [
+    provideHttpClient() // Add provideHttpClient here
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
