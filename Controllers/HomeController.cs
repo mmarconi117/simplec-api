@@ -26,15 +26,21 @@ namespace theApi.Controllers
                 var responseString = await response.Content.ReadAsStringAsync();
                 var json = JObject.Parse(responseString);
 
-                ViewData["BitcoinPriceUSD"] = json["bpi"]["USD"]["rate"].ToString();
-                ViewData["BitcoinPriceGBP"] = json["bpi"]["GBP"]["rate"].ToString();
-                ViewData["BitcoinPriceEUR"] = json["bpi"]["EUR"]["rate"].ToString();
-                ViewData["UpdatedTime"] = json["time"]["updated"].ToString();
+                // Use null checks to avoid dereferencing null values
+                ViewData["BitcoinPriceUSD"] = json["bpi"]?["USD"]?["rate"]?.ToString() ?? "N/A";
+                ViewData["BitcoinPriceGBP"] = json["bpi"]?["GBP"]?["rate"]?.ToString() ?? "N/A";
+                ViewData["BitcoinPriceEUR"] = json["bpi"]?["EUR"]?["rate"]?.ToString() ?? "N/A";
+                ViewData["UpdatedTime"] = json["time"]?["updated"]?.ToString() ?? "N/A";
             }
             catch (HttpRequestException e)
             {
-
+                _logger.LogError(e, "Error fetching data from CoinDesk API"); // Log the error for debugging
                 ViewData["Error"] = "Unable to fetch data from CoinDesk API.";
+            }
+            catch (Exception ex) // Catch other exceptions as well
+            {
+                _logger.LogError(ex, "An unexpected error occurred");
+                ViewData["Error"] = "An unexpected error occurred.";
             }
 
             return View();

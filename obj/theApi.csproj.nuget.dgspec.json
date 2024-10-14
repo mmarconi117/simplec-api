@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/michaelmarconi/simplec#api/theApi/theApi.csproj": {}
+    "/Users/michaelmarconi/simplecsharpApi/theApi/theApi.csproj": {}
   },
   "projects": {
-    "/Users/michaelmarconi/simplec#api/theApi/theApi.csproj": {
+    "/Users/michaelmarconi/simplecsharpApi/theApi/theApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/michaelmarconi/simplec#api/theApi/theApi.csproj",
+        "projectUniqueName": "/Users/michaelmarconi/simplecsharpApi/theApi/theApi.csproj",
         "projectName": "theApi",
-        "projectPath": "/Users/michaelmarconi/simplec#api/theApi/theApi.csproj",
+        "projectPath": "/Users/michaelmarconi/simplecsharpApi/theApi/theApi.csproj",
         "packagesPath": "/Users/michaelmarconi/.nuget/packages/",
-        "outputPath": "/Users/michaelmarconi/simplec#api/theApi/obj/",
+        "outputPath": "/Users/michaelmarconi/simplecsharpApi/theApi/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/michaelmarconi/.nuget/NuGet/NuGet.Config"
