@@ -1,0 +1,12 @@
+<h1>Bitcoin Prices</h1>
+
+<div *ngIf="errorMessage">
+  <p style="color:red;">{{ errorMessage }}</p>
+</div>
+
+<div *ngIf="bitcoinPrices">
+  <p>Current Bitcoin price in USD: {{ bitcoinPrices.USD }}</p>
+  <p>Current Bitcoin price in GBP: {{ bitcoinPrices.GBP }}</p>
+  <p>Current Bitcoin price in EUR: {{ bitcoinPrices.EUR }}</p>
+  <p>Last updated: {{ bitcoinPrices.UpdatedTime }}</p>
+</div>
