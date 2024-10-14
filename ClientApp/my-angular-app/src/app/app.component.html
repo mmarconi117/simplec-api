@@ -6,8 +6,8 @@
 </div>
 
 <div *ngIf="bitcoinPrices">
-  <p class="price">Current Bitcoin price in USD: {{ bitcoinPrices.bitcoinPriceUSD }}</p>
-  <p class="price">Current Bitcoin price in GBP: {{ bitcoinPrices.bitcoinPriceGBP }}</p>
-  <p class="price">Current Bitcoin price in EUR: {{ bitcoinPrices.bitcoinPriceEUR }}</p>
+  <p class="price">Current Bitcoin price in USD: {{ bitcoinPrices.usd }}</p>
+  <p class="price">Current Bitcoin price in GBP: {{ bitcoinPrices.gbp }}</p>
+  <p class="price">Current Bitcoin price in EUR: {{ bitcoinPrices.eur }}</p>
   <p class="price">Last updated: {{ bitcoinPrices.updatedTime }}</p>
 </div>

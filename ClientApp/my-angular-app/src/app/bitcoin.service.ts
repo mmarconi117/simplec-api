@@ -6,7 +6,7 @@ import { catchError, Observable, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class BitcoinService {
-  private apiUrl = 'https://localhost:5007/api/home/bitcoin-prices'; // Update with your API URL
+  private apiUrl = 'http://localhost:5007/api/api/bitcoin-prices'; // Updated with the correct API URL
 
   constructor(private http: HttpClient) {}
 

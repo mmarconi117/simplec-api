@@ -16,8 +16,8 @@ builder.Services.AddCors(options =>
         });
 });
 
-// Add services for MVC controllers with views
-builder.Services.AddControllersWithViews();
+// Add services for MVC controllers
+builder.Services.AddControllers(); // Only add this if you're only using APIs
 
 // Add HTTP client services
 builder.Services.AddHttpClient();
@@ -41,12 +41,7 @@ app.UseRouting(); // Enable routing
 app.UseAuthorization(); // Enable authorization
 
 // Map controller routes
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-// Map the API controllers
-app.MapControllers();
+app.MapControllers(); // This maps the API controllers
 
 // Run the application
 app.Run();

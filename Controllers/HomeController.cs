@@ -1,11 +1,12 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using theApi.Models;
 using Newtonsoft.Json.Linq;
+using System.Diagnostics;
 
 namespace theApi.Controllers
 {
-    public class HomeController : Controller
+    [ApiController]
+    [Route("api/[controller]")]
+    public class HomeController : ControllerBase
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IHttpClientFactory _httpClientFactory;
@@ -16,7 +17,8 @@ namespace theApi.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<IActionResult> Index()
+        [HttpGet("bitcoin-price")]
+        public async Task<IActionResult> GetBitcoinPrice()
         {
             try
             {
@@ -26,35 +28,34 @@ namespace theApi.Controllers
                 var responseString = await response.Content.ReadAsStringAsync();
                 var json = JObject.Parse(responseString);
 
-                // Use null checks to avoid dereferencing null values
-                ViewData["BitcoinPriceUSD"] = json["bpi"]?["USD"]?["rate"]?.ToString() ?? "N/A";
-                ViewData["BitcoinPriceGBP"] = json["bpi"]?["GBP"]?["rate"]?.ToString() ?? "N/A";
-                ViewData["BitcoinPriceEUR"] = json["bpi"]?["EUR"]?["rate"]?.ToString() ?? "N/A";
-                ViewData["UpdatedTime"] = json["time"]?["updated"]?.ToString() ?? "N/A";
+                // Extract Bitcoin prices
+                var bitcoinPrices = new
+                {
+                    USD = json["bpi"]?["USD"]?["rate"]?.ToString() ?? "N/A",
+                    GBP = json["bpi"]?["GBP"]?["rate"]?.ToString() ?? "N/A",
+                    EUR = json["bpi"]?["EUR"]?["rate"]?.ToString() ?? "N/A",
+                    UpdatedTime = json["time"]?["updated"]?.ToString() ?? "N/A"
+                };
+
+                return Ok(bitcoinPrices); // Return the Bitcoin prices as JSON
             }
             catch (HttpRequestException e)
             {
-                _logger.LogError(e, "Error fetching data from CoinDesk API"); // Log the error for debugging
-                ViewData["Error"] = "Unable to fetch data from CoinDesk API.";
+                _logger.LogError(e, "Error fetching data from CoinDesk API");
+                return StatusCode(500, "Unable to fetch data from CoinDesk API.");
             }
-            catch (Exception ex) // Catch other exceptions as well
+            catch (Exception ex)
             {
                 _logger.LogError(ex, "An unexpected error occurred");
-                ViewData["Error"] = "An unexpected error occurred.";
+                return StatusCode(500, "An unexpected error occurred.");
             }
-
-            return View();
         }
 
+        // This method can be retained if you still need it for something else
+        [HttpGet("privacy")]
         public IActionResult Privacy()
         {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return Ok("Privacy Policy"); // Or whatever you want to return
         }
     }
 }

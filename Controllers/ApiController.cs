@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace theApi.Controllers
 {
@@ -8,30 +8,42 @@ namespace theApi.Controllers
     [Route("api/[controller]")]
     public class ApiController : ControllerBase
     {
-        private readonly HttpClient _httpClient;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public ApiController(HttpClient httpClient)
+        public ApiController(IHttpClientFactory httpClientFactory)
         {
-            _httpClient = httpClient;
+            _httpClientFactory = httpClientFactory;
         }
 
         [HttpGet("bitcoin-prices")]
         public async Task<IActionResult> GetBitcoinPrices()
         {
-            var response = await _httpClient.GetAsync("https://api.coindesk.com/v1/bpi/currentprice.json");
-            if (!response.IsSuccessStatusCode)
+            try
             {
-                return StatusCode((int)response.StatusCode, "Error fetching Bitcoin prices.");
+                var client = _httpClientFactory.CreateClient();
+                var response = await client.GetAsync("https://api.coindesk.com/v1/bpi/currentprice.json");
+                response.EnsureSuccessStatusCode();
+                var responseString = await response.Content.ReadAsStringAsync();
+                var json = JObject.Parse(responseString);
+
+                var bitcoinPrices = new
+                {
+                    USD = json["bpi"]?["USD"]?["rate"]?.ToString(),
+                    GBP = json["bpi"]?["GBP"]?["rate"]?.ToString(),
+                    EUR = json["bpi"]?["EUR"]?["rate"]?.ToString(),
+                    UpdatedTime = json["time"]?["updated"]?.ToString()
+                };
+
+                return Ok(bitcoinPrices);
             }
-
-            var jsonData = await response.Content.ReadAsStringAsync();
-            return Ok(jsonData);
-        }
-
-        [HttpGet]
-        public IActionResult Get()
-        {
-            return Ok(new { message = "Hello from API" });
+            catch (HttpRequestException e)
+            {
+                return StatusCode(500, "Error fetching Bitcoin prices from external API.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An unexpected error occurred.");
+            }
         }
 
         [HttpPost]
