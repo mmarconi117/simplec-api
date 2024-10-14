@@ -1,1 +1,64 @@
 /* You can add global styles to this file, and also import other style files */
+/* src/app/app.component.css */
+
+/* Set a background for the entire body */
+body {
+    background-color: black !important;
+    color: #b53a3a !important;
+    font-family: 'Roboto', sans-serif !important;
+    min-height: 100vh !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    flex-direction: column !important;
+    margin: 0 !important; /* Remove default margin */
+}
+
+/* Style for the main container */
+h1 {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 2.5em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Style for the price display */
+.price {
+    font-size: 2em;
+    margin: 10px 0;
+    text-align: center;
+    color: var(--primary-color);
+    font-weight: bold;
+    transition: transform 0.2s;
+}
+
+.price:hover {
+    transform: scale(1.05);
+}
+
+/* Style for the error message */
+.error-message {
+    color: var(--accent-color);
+    text-align: center;
+    font-weight: bold;
+    margin: 15px 0;
+    font-size: 1.2em;
+    border: 1px solid rgba(255, 0, 0, 0.6);
+    background-color: rgba(255, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 1.8em;
+    }
+    .price {
+        font-size: 1.5em;
+    }
+    .error-message {
+        font-size: 1em;
+    }
+}
